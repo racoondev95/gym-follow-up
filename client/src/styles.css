@@ -51,3 +51,14 @@ app-root {
   color: white !important;
 }
 
+.update-snackbar {
+  background-color: #1e3c72 !important;
+  color: white !important;
+  font-weight: 500;
+}
+
+.update-snackbar .mat-mdc-snack-bar-action {
+  color: #fff !important;
+  font-weight: 600;
+}
+

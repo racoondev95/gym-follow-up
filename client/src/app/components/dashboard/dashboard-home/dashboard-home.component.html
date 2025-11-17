@@ -1,10 +1,13 @@
 <div class="dashboard-home">
-  <div class="dashboard-header">
-    <h1>Dashboard</h1>
-    <p>Overview of your training activity</p>
-  </div>
+  <app-dashboard-home-skeleton *ngIf="loading"></app-dashboard-home-skeleton>
+  
+  <div *ngIf="!loading">
+    <div class="dashboard-header">
+      <h1>Dashboard</h1>
+      <p>Overview of your training activity</p>
+    </div>
 
-  <div class="widgets-grid">
+    <div class="widgets-grid">
     <!-- Sessions Stats Widgets -->
     <mat-card class="stat-widget">
       <mat-card-content>
@@ -118,5 +121,6 @@
         </div>
       </mat-card-content>
     </mat-card>
+    </div>
   </div>
 </div>

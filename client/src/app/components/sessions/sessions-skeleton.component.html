@@ -1,0 +1,27 @@
+<div class="sessions-skeleton">
+  <div class="skeleton-header">
+    <div class="skeleton-header-content">
+      <div>
+        <div class="skeleton-title"></div>
+        <div class="skeleton-subtitle"></div>
+      </div>
+      <div class="skeleton-button"></div>
+    </div>
+  </div>
+
+  <div class="skeleton-search">
+    <div class="skeleton-search-field"></div>
+  </div>
+
+  <div class="skeleton-table-container">
+    <div class="skeleton-table">
+      <div class="skeleton-table-header">
+        <div class="skeleton-header-cell" *ngFor="let col of [1,2,3,4,5,6]"></div>
+      </div>
+      <div class="skeleton-table-row" *ngFor="let row of [1,2,3,4,5]">
+        <div class="skeleton-cell" *ngFor="let col of [1,2,3,4,5,6]"></div>
+      </div>
+    </div>
+  </div>
+</div>
+

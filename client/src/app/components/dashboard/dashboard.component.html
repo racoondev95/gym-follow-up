@@ -40,6 +40,11 @@
   </mat-drawer>
 
   <mat-drawer-content class="dashboard-content">
+    <mat-progress-bar 
+      mode="indeterminate" 
+      *ngIf="loading$ | async"
+      class="loading-progress-bar">
+    </mat-progress-bar>
     <div class="toolbar" *ngIf="isMobile">
       <button mat-icon-button (click)="toggleSidebar()" class="menu-button">
         <mat-icon>menu</mat-icon>
