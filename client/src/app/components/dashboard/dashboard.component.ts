@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { LoadingService } from '../../services/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,12 +13,15 @@ export class DashboardComponent implements OnInit {
   opened = true;
   currentUser: any = null;
   isMobile = false;
+  loading$: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {
     this.checkScreenSize();
+    this.loading$ = this.loadingService.loading$;
   }
 
   @HostListener('window:resize', ['$event'])

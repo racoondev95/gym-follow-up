@@ -1,5 +1,8 @@
 <div class="sessions-container">
-  <div class="sessions-header">
+  <app-sessions-skeleton *ngIf="loading"></app-sessions-skeleton>
+  
+  <div *ngIf="!loading">
+    <div class="sessions-header">
     <div class="header-content">
       <div>
         <h1>Training Sessions</h1>
@@ -82,14 +85,10 @@
     </mat-paginator>
   </div>
 
-  <div class="loading-container" *ngIf="loading">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>Loading sessions...</p>
-  </div>
-
-  <div class="no-data" *ngIf="!loading && filteredSessions.length === 0">
-    <mat-icon>fitness_center</mat-icon>
-    <p>No sessions found</p>
+    <div class="no-data" *ngIf="!loading && filteredSessions.length === 0">
+      <mat-icon>fitness_center</mat-icon>
+      <p>No sessions found</p>
+    </div>
   </div>
 </div>
 

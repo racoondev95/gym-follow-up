@@ -37,19 +37,24 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserProfile(): void {
-    this.currentUser = this.authService.getCurrentUser();
-    if (this.currentUser) {
-      this.profileForm.patchValue({
-        email: this.currentUser.email,
-        username: this.currentUser.username,
-        firstName: this.currentUser.firstName,
-        lastName: this.currentUser.lastName
-      });
-      this.previewUrl = this.currentUser.profilePicturePath 
-        ? `${environment.apiUrl.replace('/api', '')}${this.currentUser.profilePicturePath}` 
-        : null;
-      this.originalFormData = { ...this.profileForm.value, profilePicture: null };
-    }
+    this.loading = true;
+    // Simulate a small delay to show skeleton loader
+    setTimeout(() => {
+      this.currentUser = this.authService.getCurrentUser();
+      if (this.currentUser) {
+        this.profileForm.patchValue({
+          email: this.currentUser.email,
+          username: this.currentUser.username,
+          firstName: this.currentUser.firstName,
+          lastName: this.currentUser.lastName
+        });
+        this.previewUrl = this.currentUser.profilePicturePath 
+          ? `${environment.apiUrl.replace('/api', '')}${this.currentUser.profilePicturePath}` 
+          : null;
+        this.originalFormData = { ...this.profileForm.value, profilePicture: null };
+      }
+      this.loading = false;
+    }, 300);
   }
 
   onFileSelected(event: any): void {

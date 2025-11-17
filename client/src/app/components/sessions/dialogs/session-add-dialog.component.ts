@@ -28,19 +28,23 @@ export class SessionAddDialogComponent implements OnInit {
   ) {
     this.sessionForm = this.fb.group({
       name: [''],
-      sessionDate: ['', [Validators.required]],
+      sessionDate: [null, [Validators.required]],
+      sessionTime: ['', [Validators.required]],
       exercises: this.fb.array([])
     });
     this.exercisesFormArray = this.sessionForm.get('exercises') as FormArray;
   }
 
   ngOnInit(): void {
-    // Set default date to now
+    // Set default date and time to now
     const now = new Date();
-    const formattedDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
-      .toISOString()
-      .slice(0, 16);
-    this.sessionForm.patchValue({ sessionDate: formattedDate });
+    const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    
+    this.sessionForm.patchValue({
+      sessionDate: date,
+      sessionTime: time
+    });
   }
 
   addExerciseForm(): void {
@@ -76,9 +80,16 @@ export class SessionAddDialogComponent implements OnInit {
         repsOnLastSeries: exercise.repsOnLastSeries ? parseInt(exercise.repsOnLastSeries) : undefined
       })).filter((exercise: any) => exercise.name); // Only include exercises with a name
 
+      // Combine date and time
+      const date = this.sessionForm.value.sessionDate;
+      const time = this.sessionForm.value.sessionTime;
+      const [hours, minutes] = time.split(':');
+      const combinedDate = new Date(date);
+      combinedDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
       const sessionData = {
         name: this.sessionForm.value.name || undefined,
-        sessionDate: new Date(this.sessionForm.value.sessionDate).toISOString(),
+        sessionDate: combinedDate.toISOString(),
         exercises: exercises.length > 0 ? exercises : undefined
       };
 

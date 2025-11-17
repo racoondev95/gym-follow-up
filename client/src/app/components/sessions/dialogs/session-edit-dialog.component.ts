@@ -28,18 +28,18 @@ export class SessionEditDialogComponent implements OnInit {
   ) {
     this.editForm = this.fb.group({
       name: [''],
-      sessionDate: ['', [Validators.required]],
+      sessionDate: [null, [Validators.required]],
+      sessionTime: ['', [Validators.required]],
       exercises: this.fb.array([])
     });
     this.exercisesFormArray = this.editForm.get('exercises') as FormArray;
   }
 
   ngOnInit(): void {
-    // Format date for input (YYYY-MM-DDTHH:mm)
+    // Parse date and time from sessionDate
     const date = new Date(this.data.sessionDate);
-    const formattedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-      .toISOString()
-      .slice(0, 16);
+    const sessionDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const sessionTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
     
     // Load existing exercises if available
     if (this.data.exercises && Array.isArray(this.data.exercises)) {
@@ -50,7 +50,8 @@ export class SessionEditDialogComponent implements OnInit {
     
     this.editForm.patchValue({
       name: this.data.name || '',
-      sessionDate: formattedDate
+      sessionDate: sessionDate,
+      sessionTime: sessionTime
     });
 
     this.originalData = { ...this.editForm.value };
@@ -91,9 +92,16 @@ export class SessionEditDialogComponent implements OnInit {
         repsOnLastSeries: exercise.repsOnLastSeries ? parseInt(exercise.repsOnLastSeries) : undefined
       })).filter((exercise: any) => exercise.name); // Only include exercises with a name
 
+      // Combine date and time
+      const date = this.editForm.value.sessionDate;
+      const time = this.editForm.value.sessionTime;
+      const [hours, minutes] = time.split(':');
+      const combinedDate = new Date(date);
+      combinedDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
       const sessionData = {
         name: this.editForm.value.name || undefined,
-        sessionDate: new Date(this.editForm.value.sessionDate).toISOString(),
+        sessionDate: combinedDate.toISOString(),
         exercises: exercises.length > 0 ? exercises : undefined
       };
 
@@ -122,9 +130,14 @@ export class SessionEditDialogComponent implements OnInit {
   }
 
   onReset(): void {
+    const date = new Date(this.data.sessionDate);
+    const sessionDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const sessionTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    
     this.editForm.patchValue({
       name: this.originalData.name || '',
-      sessionDate: this.originalData.sessionDate
+      sessionDate: sessionDate,
+      sessionTime: sessionTime
     });
     
     // Reset exercises array

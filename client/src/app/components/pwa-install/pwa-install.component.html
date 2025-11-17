@@ -1,0 +1,25 @@
+<div class="pwa-install-banner" *ngIf="shouldShowPrompt()">
+  <div class="banner-content">
+    <div class="banner-icon">
+      <mat-icon>get_app</mat-icon>
+    </div>
+    <div class="banner-text">
+      <h3>Instalează aplicația</h3>
+      <p>Salvează aplicația pe dispozitivul tău pentru acces rapid și funcționalitate offline</p>
+      <p class="ios-instructions" *ngIf="isIOS() && !isInstallable">
+        <mat-icon>info</mat-icon>
+        {{ getIOSInstructions() }}
+      </p>
+    </div>
+    <div class="banner-actions">
+      <button mat-raised-button color="primary" (click)="installApp()" *ngIf="isInstallable">
+        <mat-icon>download</mat-icon>
+        Instalează
+      </button>
+      <button mat-icon-button (click)="dismissPrompt()" class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+

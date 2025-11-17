@@ -11,14 +11,27 @@
       <mat-icon matPrefix>title</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Session Date</mat-label>
-      <input matInput type="datetime-local" formControlName="sessionDate" required>
-      <mat-icon matPrefix>event</mat-icon>
-      <mat-error *ngIf="sessionForm.get('sessionDate')?.hasError('required')">
-        Session date is required
-      </mat-error>
-    </mat-form-field>
+    <div class="date-time-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Session Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="sessionDate" required>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-icon matPrefix>event</mat-icon>
+        <mat-error *ngIf="sessionForm.get('sessionDate')?.hasError('required')">
+          Session date is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Time</mat-label>
+        <input matInput type="time" formControlName="sessionTime" required>
+        <mat-icon matPrefix>schedule</mat-icon>
+        <mat-error *ngIf="sessionForm.get('sessionTime')?.hasError('required')">
+          Session time is required
+        </mat-error>
+      </mat-form-field>
+    </div>
 
     <div class="exercises-section">
       <div class="exercises-header">

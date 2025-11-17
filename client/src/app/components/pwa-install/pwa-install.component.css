@@ -1,0 +1,137 @@
+.pwa-install-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid #e0e0e0;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 16px;
+}
+
+.banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.banner-icon mat-icon {
+  color: white;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.banner-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.banner-text h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e3c72;
+}
+
+.banner-text p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.banner-text .ios-instructions {
+  margin-top: 8px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #555;
+}
+
+.banner-text .ios-instructions mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #1e3c72;
+}
+
+.banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.banner-actions button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.close-button {
+  color: #999;
+}
+
+.close-button:hover {
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .pwa-install-banner {
+    width: calc(100% - 32px);
+    bottom: 16px;
+  }
+
+  .banner-content {
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .banner-text {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .banner-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .banner-actions button {
+    flex: 1;
+    justify-content: center;
+  }
+}
+

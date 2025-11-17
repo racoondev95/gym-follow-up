@@ -22,6 +22,16 @@ mat-dialog-content {
   margin-bottom: 16px;
 }
 
+.date-time-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.date-time-row .half-width {
+  flex: 1;
+}
+
 .exercises-section {
   margin-top: 24px;
   padding-top: 24px;
@@ -137,6 +147,15 @@ mat-dialog-actions button {
     min-width: auto;
     padding: 40px 20px;
     max-height: 70vh;
+  }
+
+  .date-time-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .date-time-row .half-width {
+    width: 100%;
   }
 
   .form-row {

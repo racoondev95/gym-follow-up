@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -20,6 +20,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 
 // Components
@@ -34,6 +37,11 @@ import { SessionViewDialogComponent } from './components/sessions/dialogs/sessio
 import { SessionEditDialogComponent } from './components/sessions/dialogs/session-edit-dialog.component';
 import { SessionDeleteDialogComponent } from './components/sessions/dialogs/session-delete-dialog.component';
 import { SessionAddDialogComponent } from './components/sessions/dialogs/session-add-dialog.component';
+import { PwaInstallComponent } from './components/pwa-install/pwa-install.component';
+import { PwaUpdateComponent } from './components/pwa-update/pwa-update.component';
+import { DashboardHomeSkeletonComponent } from './components/dashboard/dashboard-home/dashboard-home-skeleton.component';
+import { SessionsSkeletonComponent } from './components/sessions/sessions-skeleton.component';
+import { ProfileSkeletonComponent } from './components/profile/profile-skeleton.component';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -48,6 +56,8 @@ import { GuestGuard } from './guards/guest.guard';
 
 // Interceptors
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
@@ -78,7 +88,12 @@ const routes: Routes = [
     SessionViewDialogComponent,
     SessionEditDialogComponent,
     SessionDeleteDialogComponent,
-    SessionAddDialogComponent
+    SessionAddDialogComponent,
+    PwaInstallComponent,
+    PwaUpdateComponent,
+    DashboardHomeSkeletonComponent,
+    SessionsSkeletonComponent,
+    ProfileSkeletonComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +115,16 @@ const routes: Routes = [
     MatDialogModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressBarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(), // Disable in development to avoid CORS issues
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     AuthService,
@@ -113,6 +137,11 @@ const routes: Routes = [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true
     }
   ],
