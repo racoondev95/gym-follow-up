@@ -8,7 +8,7 @@
     </div>
     
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active" (click)="isMobile && toggleSidebar()">
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="isMobile && toggleSidebar()">
         <mat-icon matListItemIcon>grid_view</mat-icon>
         <span matListItemTitle>Dashboard</span>
       </a>
