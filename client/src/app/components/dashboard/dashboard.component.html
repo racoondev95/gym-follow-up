@@ -1,0 +1,53 @@
+<mat-drawer-container class="dashboard-container" autosize>
+  <mat-drawer #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="opened" class="dashboard-sidebar">
+    <div class="sidebar-header">
+      <h2>Gym Follow Up</h2>
+      <button mat-icon-button class="close-sidebar-btn" *ngIf="isMobile" (click)="toggleSidebar()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active" (click)="isMobile && toggleSidebar()">
+        <mat-icon matListItemIcon>grid_view</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/dashboard/sessions" routerLinkActive="active" (click)="isMobile && toggleSidebar()">
+        <mat-icon matListItemIcon>list</mat-icon>
+        <span matListItemTitle>Sessions</span>
+      </a>
+      <a mat-list-item routerLink="/dashboard/profile" routerLinkActive="active" (click)="isMobile && toggleSidebar()">
+        <mat-icon matListItemIcon>person</mat-icon>
+        <span matListItemTitle>Profile</span>
+      </a>
+    </mat-nav-list>
+
+    <div class="sidebar-footer">
+      <div class="user-info" *ngIf="currentUser">
+        <div class="user-avatar">
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <div class="user-details">
+          <div class="user-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</div>
+          <div class="user-email">{{ currentUser.email }}</div>
+        </div>
+      </div>
+      <button mat-stroked-button color="warn" (click)="logout()" class="logout-button">
+        <mat-icon>logout</mat-icon>
+        <span class="logout-text">Logout</span>
+      </button>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content class="dashboard-content">
+    <div class="toolbar" *ngIf="isMobile">
+      <button mat-icon-button (click)="toggleSidebar()" class="menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h2 class="toolbar-title">Gym Follow Up</h2>
+    </div>
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

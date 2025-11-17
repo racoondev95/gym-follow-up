@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>
+  <mat-icon>delete</mat-icon>
+  Delete Session
+</h2>
+
+<mat-dialog-content>
+  <div class="delete-warning">
+    <mat-icon class="warning-icon">warning</mat-icon>
+    <p>Are you sure you want to delete this session? This action cannot be undone.</p>
+  </div>
+
+  <div class="session-details">
+    <div class="detail-item">
+      <span class="detail-label">Session ID:</span>
+      <span class="detail-value">{{ data.id }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-label">Session Date:</span>
+      <span class="detail-value">{{ formatDate(data.sessionDate) }}</span>
+    </div>
+    <div class="detail-item" *ngIf="data.exerciseCount !== undefined">
+      <span class="detail-label">Exercises:</span>
+      <span class="detail-value">{{ data.exerciseCount }}</span>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onCancel()" [disabled]="loading">
+    <mat-icon>cancel</mat-icon>
+    Cancel
+  </button>
+  <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="loading">
+    <mat-icon>delete</mat-icon>
+    <span *ngIf="!loading">Delete</span>
+    <span *ngIf="loading">Deleting...</span>
+  </button>
+</mat-dialog-actions>
+

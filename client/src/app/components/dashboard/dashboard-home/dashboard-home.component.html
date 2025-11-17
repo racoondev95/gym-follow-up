@@ -1,0 +1,122 @@
+<div class="dashboard-home">
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p>Overview of your training activity</p>
+  </div>
+
+  <div class="widgets-grid">
+    <!-- Sessions Stats Widgets -->
+    <mat-card class="stat-widget">
+      <mat-card-content>
+        <div class="stat-content">
+          <div class="stat-icon today">
+            <mat-icon>today</mat-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ todaySessions }}</div>
+            <div class="stat-label">Today's Sessions</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-widget">
+      <mat-card-content>
+        <div class="stat-content">
+          <div class="stat-icon week">
+            <mat-icon>date_range</mat-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ weekSessions }}</div>
+            <div class="stat-label">This Week</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-widget">
+      <mat-card-content>
+        <div class="stat-content">
+          <div class="stat-icon month">
+            <mat-icon>calendar_month</mat-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ monthSessions }}</div>
+            <div class="stat-label">This Month</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Profile Widget -->
+    <mat-card class="profile-widget" *ngIf="currentUser">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>person</mat-icon>
+          Profile
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="profile-widget-content">
+          <div class="profile-picture-wrapper">
+            <img 
+              [src]="getProfilePictureUrl()" 
+              alt="Profile Picture" 
+              class="profile-picture"
+              onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\'%3E%3Ccircle cx=\'40\' cy=\'40\' r=\'40\' fill=\'%23ddd\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'30\'%3E?%3C/text%3E%3C/svg%3E'">
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</div>
+            <div class="profile-role">
+              <span class="role-badge" [class.admin]="currentUser.userRole === 'admin'">
+                {{ currentUser.userRole }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Account Info Widget -->
+    <mat-card class="account-widget" *ngIf="currentUser">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>account_circle</mat-icon>
+          Account Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="account-info-list">
+          <div class="account-info-item">
+            <mat-icon>email</mat-icon>
+            <div class="account-info-content">
+              <div class="account-info-label">Email</div>
+              <div class="account-info-value">{{ currentUser.email }}</div>
+            </div>
+          </div>
+          <div class="account-info-item">
+            <mat-icon>account_circle</mat-icon>
+            <div class="account-info-content">
+              <div class="account-info-label">Username</div>
+              <div class="account-info-value">{{ currentUser.username }}</div>
+            </div>
+          </div>
+          <div class="account-info-item">
+            <mat-icon>person</mat-icon>
+            <div class="account-info-content">
+              <div class="account-info-label">First Name</div>
+              <div class="account-info-value">{{ currentUser.firstName }}</div>
+            </div>
+          </div>
+          <div class="account-info-item">
+            <mat-icon>person</mat-icon>
+            <div class="account-info-content">
+              <div class="account-info-label">Last Name</div>
+              <div class="account-info-value">{{ currentUser.lastName }}</div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

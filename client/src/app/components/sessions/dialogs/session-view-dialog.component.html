@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>
+  <mat-icon>fitness_center</mat-icon>
+  Session Details
+</h2>
+
+<mat-dialog-content>
+  <div class="session-info">
+    <div class="info-row">
+      <div class="info-label">
+        <mat-icon>tag</mat-icon>
+        Session ID
+      </div>
+      <div class="info-value">{{ data.id }}</div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-label">
+        <mat-icon>event</mat-icon>
+        Session Date
+      </div>
+      <div class="info-value">{{ formatDate(data.sessionDate) }}</div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-label">
+        <mat-icon>fitness_center</mat-icon>
+        Exercises Count
+      </div>
+      <div class="info-value">{{ data.exercises?.length || 0 }}</div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-label">
+        <mat-icon>schedule</mat-icon>
+        Created At
+      </div>
+      <div class="info-value">{{ formatDate(data.createdAt) }}</div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-label">
+        <mat-icon>update</mat-icon>
+        Updated At
+      </div>
+      <div class="info-value">{{ formatDate(data.updatedAt) }}</div>
+    </div>
+  </div>
+
+  <div class="exercises-section" *ngIf="data.exercises && data.exercises.length > 0">
+    <h3>
+      <mat-icon>list</mat-icon>
+      Exercises
+    </h3>
+    <div class="exercises-list">
+      <div class="exercise-item" *ngFor="let exercise of data.exercises">
+        <div class="exercise-header">
+          <strong>{{ exercise.name }}</strong>
+        </div>
+        <div class="exercise-details">
+          <span *ngIf="exercise.numberOfSeries">Series: {{ exercise.numberOfSeries }}</span>
+          <span *ngIf="exercise.rangeRepsPerSeries">Reps Range: {{ exercise.rangeRepsPerSeries }}</span>
+          <span *ngIf="exercise.weightOnLastSeries">Weight: {{ exercise.weightOnLastSeries }} kg</span>
+          <span *ngIf="exercise.repsOnLastSeries">Last Reps: {{ exercise.repsOnLastSeries }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-exercises" *ngIf="!data.exercises || data.exercises.length === 0">
+    <mat-icon>info</mat-icon>
+    <p>No exercises recorded for this session</p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="close()">
+    <mat-icon>close</mat-icon>
+    Close
+  </button>
+</mat-dialog-actions>
+

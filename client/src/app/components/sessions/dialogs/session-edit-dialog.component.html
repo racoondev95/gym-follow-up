@@ -1,0 +1,110 @@
+<h2 mat-dialog-title>
+  <mat-icon>edit</mat-icon>
+  Edit Session
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Session Name</mat-label>
+      <input matInput formControlName="name" placeholder="e.g., Morning Workout, Leg Day">
+      <mat-icon matPrefix>title</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Session Date</mat-label>
+      <input matInput type="datetime-local" formControlName="sessionDate" required>
+      <mat-icon matPrefix>event</mat-icon>
+      <mat-error *ngIf="editForm.get('sessionDate')?.hasError('required')">
+        Session date is required
+      </mat-error>
+    </mat-form-field>
+
+    <div class="exercises-section">
+      <div class="exercises-header">
+        <h3>
+          <mat-icon>fitness_center</mat-icon>
+          Exercises
+        </h3>
+        <button mat-icon-button type="button" (click)="addExerciseForm()" color="primary" matTooltip="Add Exercise">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div formArrayName="exercises" class="exercises-list">
+        <div *ngFor="let exercise of exercisesFormArray.controls; let i = index" [formGroupName]="i" class="exercise-form-item">
+          <div class="exercise-form-header">
+            <h4>Exercise {{ i + 1 }}</h4>
+            <button mat-icon-button type="button" (click)="removeExerciseForm(i)" color="warn" matTooltip="Remove Exercise">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          <div class="exercise-form-fields">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Exercise Name</mat-label>
+              <input matInput formControlName="name" placeholder="e.g., Bench Press" required>
+              <mat-icon matPrefix>fitness_center</mat-icon>
+              <mat-error *ngIf="exercise.get('name')?.hasError('required')">
+                Exercise name is required
+              </mat-error>
+            </mat-form-field>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Number of Series</mat-label>
+                <input matInput type="number" formControlName="numberOfSeries" placeholder="e.g., 3">
+                <mat-icon matPrefix>list</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Range Reps Per Series</mat-label>
+                <input matInput formControlName="rangeRepsPerSeries" placeholder="e.g., 8-12">
+                <mat-icon matPrefix>repeat</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Weight on Last Series (kg)</mat-label>
+                <input matInput type="number" step="0.01" formControlName="weightOnLastSeries" placeholder="e.g., 80.5">
+                <mat-icon matPrefix>scale</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Reps on Last Series</mat-label>
+                <input matInput type="number" formControlName="repsOnLastSeries" placeholder="e.g., 10">
+                <mat-icon matPrefix>tag</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-exercises" *ngIf="exercisesFormArray.length === 0">
+          <mat-icon>info</mat-icon>
+          <p>No exercises added. Click the + button to add exercises.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="error-message" *ngIf="error">
+      {{ error }}
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onCancel()" [disabled]="loading">
+    <mat-icon>cancel</mat-icon>
+    Cancel
+  </button>
+  <button mat-stroked-button (click)="onReset()" [disabled]="loading">
+    <mat-icon>refresh</mat-icon>
+    Reset Form
+  </button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="loading || !editForm.valid">
+    <mat-icon>save</mat-icon>
+    <span *ngIf="!loading">Update</span>
+    <span *ngIf="loading">Updating...</span>
+  </button>
+</mat-dialog-actions>
