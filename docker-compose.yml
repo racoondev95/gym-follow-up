@@ -46,6 +46,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      args:
+        MACBOOK_IP: ${MACBOOK_IP:-localhost}
     container_name: gym-followup-client
     restart: unless-stopped
     ports:
