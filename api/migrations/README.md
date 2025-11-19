@@ -41,6 +41,7 @@ Migrations are named with a number prefix and descriptive name:
 ## Current Migrations
 
 - `001_refactor_api_structure.sql` - Documents the API refactoring changes (no schema changes, only documentation)
+- `002_progress_chart_feature.sql` - Documents the progress chart feature implementation (no schema changes, only documentation)
 
 ## Notes
 

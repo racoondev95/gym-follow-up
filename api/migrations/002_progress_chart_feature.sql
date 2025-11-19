@@ -1,0 +1,70 @@
+-- Migration: 002_progress_chart_feature.sql
+-- Description: Progress Chart Feature - Analytics Dashboard Implementation
+-- Date: 2025-11-19
+-- Branch: feature/progress-chart
+-- 
+-- This migration documents the progress chart feature implementation that provides
+-- analytics visualization for user training progress. No database schema changes were made.
+--
+-- Changes:
+-- 1. New API Endpoint:
+--    - GET /api/progress - Returns aggregated monthly progress data
+--      - Intensitate: Number of training sessions per month
+--      - Greutate medie: Average weight lifted per month (from exercises.weightOnLastSeries)
+--    - Requires JWT authentication
+--    - Users can see their own data, admins can see any user's data with ?userId= parameter
+--
+-- 2. New Backend Components:
+--    - api/controllers/progressController.js - Handles progress data aggregation
+--    - api/routes/progressRoutes.js - Progress endpoint routes
+--    - Added progress routes to api/server.js
+--
+-- 3. New Frontend Components:
+--    - client/src/app/components/progress/ - Full page progress component
+--      - progress.component.ts - Progress chart component with ApexCharts
+--      - progress.component.html - Progress page template
+--      - progress.component.css - Progress page styles
+--    - client/src/app/services/progress.service.ts - Service for progress API calls
+--    - Added progress route to dashboard: /dashboard/progress
+--    - Added progress widget to dashboard home page
+--
+-- 4. New Dependencies:
+--    - ng-apexcharts@1.7.0 - Angular wrapper for ApexCharts
+--    - apexcharts@3.44.0 - Charting library
+--
+-- Database Schema:
+-- No schema changes required. Feature uses existing tables:
+-- - sessions (sessionDate, userId)
+-- - exercises (weightOnLastSeries, sessionId)
+--
+-- The progress data is calculated using SQL aggregation:
+-- - Groups sessions by month (DATE_FORMAT)
+-- - Counts sessions per month (intensity)
+-- - Calculates average weight from exercises per month
+--
+-- Migration Status: Documentation Only
+-- This migration file serves as documentation. No SQL changes are needed as the
+-- feature uses existing database schema and only adds new API endpoints and frontend components.
+
+-- Verification queries (run these to verify data availability):
+-- 
+-- Check if sessions exist:
+-- SELECT COUNT(*) as session_count FROM sessions;
+-- 
+-- Check if exercises with weight data exist:
+-- SELECT COUNT(*) as exercise_count FROM exercises WHERE weightOnLastSeries IS NOT NULL;
+-- 
+-- Sample progress data query (for user with ID 1):
+-- SELECT 
+--   DATE_FORMAT(s.sessionDate, '%Y-%m') as month,
+--   DATE_FORMAT(s.sessionDate, '%M %Y') as monthLabel,
+--   COUNT(DISTINCT s.id) as intensity,
+--   AVG(e.weightOnLastSeries) as averageWeight
+-- FROM sessions s
+-- LEFT JOIN exercises e ON s.id = e.sessionId AND e.weightOnLastSeries IS NOT NULL
+-- WHERE s.userId = 1
+-- GROUP BY DATE_FORMAT(s.sessionDate, '%Y-%m'), DATE_FORMAT(s.sessionDate, '%M %Y')
+-- ORDER BY DATE_FORMAT(s.sessionDate, '%Y-%m') ASC;
+
+SELECT 'Migration 002: Progress Chart Feature - Documentation Only' AS status;
+

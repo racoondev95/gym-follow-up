@@ -129,6 +129,34 @@
         </div>
       </mat-card-content>
     </mat-card>
+
+    <!-- Progress Timeline Widget -->
+    <mat-card class="progress-widget">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>trending_up</mat-icon>
+          Progress Timeline
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="progressLoading" class="progress-loading">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <div *ngIf="!progressLoading" class="progress-chart-container">
+          <apx-chart
+            [series]="progressChartOptions.series!"
+            [chart]="progressChartOptions.chart!"
+            [xaxis]="progressChartOptions.xaxis!"
+            [yaxis]="progressChartOptions.yaxis!"
+            [dataLabels]="progressChartOptions.dataLabels!"
+            [stroke]="progressChartOptions.stroke!"
+            [legend]="progressChartOptions.legend!"
+            [tooltip]="progressChartOptions.tooltip!"
+            [fill]="progressChartOptions.fill!">
+          </apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
     </div>
   </div>
 </div>

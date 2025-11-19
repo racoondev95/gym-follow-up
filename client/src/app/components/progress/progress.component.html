@@ -1,0 +1,32 @@
+<div class="progress-container">
+  <h1>Progress</h1>
+  
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Se încarcă datele...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadProgressData()">
+      <mat-icon>refresh</mat-icon>
+      Reîncearcă
+    </button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="chart-container">
+    <apx-chart
+      [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [xaxis]="chartOptions.xaxis!"
+      [yaxis]="chartOptions.yaxis!"
+      [dataLabels]="chartOptions.dataLabels!"
+      [stroke]="chartOptions.stroke!"
+      [title]="chartOptions.title!"
+      [legend]="chartOptions.legend!"
+      [tooltip]="chartOptions.tooltip!">
+    </apx-chart>
+  </div>
+</div>
+
