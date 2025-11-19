@@ -239,6 +239,31 @@
 }
 
 @media (max-width: 1024px) {
+  mat-dialog-actions {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .exercise-item {
+    padding: 8px;
+  }
+
+  .weight-difference-hint {
+    width: 120px;
+  }
+
+  .form-row {
+    padding-bottom: 20px;
+  }
+
+  .comparison-dialog-title {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
   .comparison-container {
     grid-template-columns: 1fr;
   }
@@ -256,6 +281,8 @@
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

@@ -139,6 +139,15 @@ mat-dialog-actions button {
 }
 
 @media (max-width: 768px) {
+
+  mat-dialog-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+
   mat-dialog-content {
     min-width: auto;
     padding: 40px 20px;

@@ -29,7 +29,15 @@
     <div class="sidebar-footer">
       <div class="user-info" *ngIf="currentUser">
         <div class="user-avatar">
-          <mat-icon>account_circle</mat-icon>
+          <img 
+            *ngIf="getProfilePictureUrl()" 
+            [src]="getProfilePictureUrl()" 
+            [alt]="currentUser.firstName + ' ' + currentUser.lastName"
+            class="profile-avatar-img"
+            (error)="onImageError($event)">
+          <mat-icon 
+            *ngIf="!getProfilePictureUrl() || imageError"
+            class="profile-avatar-icon">account_circle</mat-icon>
         </div>
         <div class="user-details">
           <div class="user-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</div>

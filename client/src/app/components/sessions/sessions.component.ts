@@ -110,9 +110,14 @@ export class SessionsComponent implements OnInit {
   openViewDialog(session: Session): void {
     this.sessionsService.getSessionWithExercises(session.id).subscribe({
       next: (sessionData) => {
+        const isMobile = window.innerWidth < 768;
         const dialogRef = this.dialog.open(SessionViewDialogComponent, {
-          width: '600px',
-          data: sessionData
+          width: isMobile ? '100vw' : '600px',
+          maxWidth: isMobile ? '100vw' : '600px',
+          height: isMobile ? '100vh' : 'auto',
+          maxHeight: isMobile ? '100vh' : '90vh',
+          data: sessionData,
+          panelClass: isMobile ? 'fullscreen-dialog' : ''
         });
       },
       error: (err) => {
@@ -124,10 +129,14 @@ export class SessionsComponent implements OnInit {
   openEditDialog(session: Session): void {
     this.sessionsService.getSessionWithExercises(session.id).subscribe({
       next: (sessionData) => {
+        const isMobile = window.innerWidth < 768;
         const dialogRef = this.dialog.open(SessionEditDialogComponent, {
-          width: '700px',
-          maxHeight: '90vh',
-          data: sessionData
+          width: isMobile ? '100vw' : '700px',
+          maxWidth: isMobile ? '100vw' : '700px',
+          height: isMobile ? '100vh' : 'auto',
+          maxHeight: isMobile ? '100vh' : '90vh',
+          data: sessionData,
+          panelClass: isMobile ? 'fullscreen-dialog' : ''
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -149,9 +158,14 @@ export class SessionsComponent implements OnInit {
   }
 
   openDeleteDialog(session: Session): void {
+    const isMobile = window.innerWidth < 768;
     const dialogRef = this.dialog.open(SessionDeleteDialogComponent, {
-      width: '400px',
-      data: session
+      width: isMobile ? '100vw' : '400px',
+      maxWidth: isMobile ? '100vw' : '400px',
+      height: isMobile ? '100vh' : 'auto',
+      maxHeight: isMobile ? '100vh' : 'auto',
+      data: session,
+      panelClass: isMobile ? 'fullscreen-dialog' : ''
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -172,9 +186,13 @@ export class SessionsComponent implements OnInit {
   }
 
   openAddDialog(): void {
+    const isMobile = window.innerWidth < 768;
     const dialogRef = this.dialog.open(SessionAddDialogComponent, {
-      width: '700px',
-      maxHeight: '90vh'
+      width: isMobile ? '100vw' : '700px',
+      maxWidth: isMobile ? '100vw' : '700px',
+      height: isMobile ? '100vh' : 'auto',
+      maxHeight: isMobile ? '100vh' : '90vh',
+      panelClass: isMobile ? 'fullscreen-dialog' : ''
     });
 
     dialogRef.afterClosed().subscribe(result => {

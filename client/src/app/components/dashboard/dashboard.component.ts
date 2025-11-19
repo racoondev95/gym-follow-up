@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { LoadingService } from '../../services/loading.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   currentUser: any = null;
   isMobile = false;
   loading$: Observable<boolean>;
+  imageError = false;
 
   constructor(
     private authService: AuthService,
@@ -52,6 +54,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   toggleSidebar(): void {
     this.opened = !this.opened;
+  }
+
+  getProfilePictureUrl(): string {
+    if (this.currentUser?.profilePicturePath) {
+      return `${environment.apiUrl.replace('/api', '')}${this.currentUser.profilePicturePath}`;
+    }
+    return '';
+  }
+
+  onImageError(event: Event): void {
+    this.imageError = true;
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      img.style.display = 'none';
+    }
   }
 
   logout(): void {
