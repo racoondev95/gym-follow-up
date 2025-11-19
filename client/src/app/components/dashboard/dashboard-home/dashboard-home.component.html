@@ -3,8 +3,16 @@
   
   <div *ngIf="!loading">
     <div class="dashboard-header">
-      <h1>Dashboard</h1>
-      <p>Overview of your training activity</p>
+      <div class="header-content">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Overview of your training activity</p>
+        </div>
+        <button mat-raised-button color="primary" (click)="openComparisonDialog()" class="comparison-button">
+          <mat-icon>compare_arrows</mat-icon>
+          Make Comparison
+        </button>
+      </div>
     </div>
 
     <div class="widgets-grid">

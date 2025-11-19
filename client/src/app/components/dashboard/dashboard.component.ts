@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { LoadingService } from '../../services/loading.service';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   opened = true;
   currentUser: any = null;
   isMobile = false;
@@ -18,9 +18,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private cdr: ChangeDetectorRef
   ) {
-    this.checkScreenSize();
     this.loading$ = this.loadingService.loading$;
   }
 
@@ -40,6 +40,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
+  }
+
+  ngAfterViewInit(): void {
+    // Check screen size after view initialization to avoid ExpressionChangedAfterItHasBeenCheckedError
+    setTimeout(() => {
+      this.checkScreenSize();
+      this.cdr.detectChanges();
+    }, 0);
   }
 
   toggleSidebar(): void {

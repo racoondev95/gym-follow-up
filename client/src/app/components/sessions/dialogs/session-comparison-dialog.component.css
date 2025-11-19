@@ -1,0 +1,261 @@
+.comparison-dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.comparison-dialog-title mat-icon {
+  color: #1976d2;
+}
+
+.comparison-dialog-content {
+  min-height: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.comparison-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 16px 0;
+}
+
+.comparison-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 1px solid #e0e0e0;
+  padding-right: 24px;
+}
+
+.comparison-side:last-child {
+  border-right: none;
+  padding-right: 0;
+  padding-left: 24px;
+}
+
+.side-header {
+  margin-bottom: 8px;
+}
+
+.side-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1976d2;
+}
+
+.side-header mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.search-section,
+.select-section {
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.session-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-option .session-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.session-option .session-date {
+  font-size: 12px;
+  color: #666;
+}
+
+.no-exercises {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  color: #999;
+  font-style: italic;
+}
+
+.session-details {
+  margin-top: 16px;
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.session-info h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.session-info .session-date {
+  font-size: 14px;
+  color: #666;
+}
+
+.exercises-section {
+  margin-top: 16px;
+}
+
+.comparison-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #fff3e0;
+  border: 1px solid #ffb74d;
+  border-radius: 8px;
+  border-left: 4px solid #ff9800;
+}
+
+.comparison-warning mat-icon {
+  color: #ff9800;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.warning-content {
+  flex: 1;
+}
+
+.warning-content strong {
+  display: block;
+  color: #e65100;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.warning-content p {
+  margin: 0;
+  color: #e65100;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.exercises-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.exercises-title mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.exercises-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.exercise-item {
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.exercise-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.half-width {
+  width: 100%;
+}
+
+::ng-deep .weight-difference-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+::ng-deep .weight-difference-hint.success {
+  color: #4caf50 !important;
+}
+
+::ng-deep .weight-difference-hint.error {
+  color: #f44336 !important;
+}
+
+::ng-deep .weight-difference-hint mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px;
+  min-height: 300px;
+}
+
+.loading-container p {
+  color: #666;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .comparison-container {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-side {
+    border-right: none;
+    padding-right: 0;
+    padding-left: 0;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+
+  .comparison-side:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+
