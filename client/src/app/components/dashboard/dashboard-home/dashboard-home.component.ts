@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionsService, Session } from '../../../services/sessions.service';
 import { AuthService, User } from '../../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SessionComparisonDialogComponent } from '../../sessions/dialogs/session-comparison-dialog.component';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -19,7 +21,8 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor(
     private sessionsService: SessionsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -71,5 +74,19 @@ export class DashboardHomeComponent implements OnInit {
       return `http://localhost:3000${this.currentUser.profilePicturePath}`;
     }
     return '';
+  }
+
+  openComparisonDialog(): void {
+    const dialogRef = this.dialog.open(SessionComparisonDialogComponent, {
+      width: '80%',
+      maxWidth: '1400px',
+      height: '80%',
+      maxHeight: '900px',
+      data: { sessions: [] }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Dialog closed
+    });
   }
 }

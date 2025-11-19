@@ -1,5 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +23,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 
 // Components
@@ -37,6 +39,7 @@ import { SessionViewDialogComponent } from './components/sessions/dialogs/sessio
 import { SessionEditDialogComponent } from './components/sessions/dialogs/session-edit-dialog.component';
 import { SessionDeleteDialogComponent } from './components/sessions/dialogs/session-delete-dialog.component';
 import { SessionAddDialogComponent } from './components/sessions/dialogs/session-add-dialog.component';
+import { SessionComparisonDialogComponent } from './components/sessions/dialogs/session-comparison-dialog.component';
 import { PwaInstallComponent } from './components/pwa-install/pwa-install.component';
 import { PwaUpdateComponent } from './components/pwa-update/pwa-update.component';
 import { DashboardHomeSkeletonComponent } from './components/dashboard/dashboard-home/dashboard-home-skeleton.component';
@@ -89,6 +92,7 @@ const routes: Routes = [
     SessionEditDialogComponent,
     SessionDeleteDialogComponent,
     SessionAddDialogComponent,
+    SessionComparisonDialogComponent,
     PwaInstallComponent,
     PwaUpdateComponent,
     DashboardHomeSkeletonComponent,
@@ -119,6 +123,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressBarModule,
+    MatSelectModule,
+    MatAutocompleteModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(), // Disable in development to avoid CORS issues
       // Register the ServiceWorker as soon as the application is stable
@@ -143,7 +149,8 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
       multi: true
-    }
+    },
+    provideClientHydration()
   ],
   bootstrap: [AppComponent]
 })
