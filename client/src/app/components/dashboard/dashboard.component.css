@@ -108,6 +108,8 @@ mat-nav-list a:hover {
 
 .user-avatar {
   margin-right: 12px;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .user-avatar mat-icon {
@@ -115,6 +117,24 @@ mat-nav-list a:hover {
   width: 40px;
   height: 40px;
   color: #666;
+}
+
+.profile-avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+}
+
+.profile-avatar-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .user-details {
@@ -152,6 +172,8 @@ mat-nav-list a:hover {
 
 .user-avatar {
   margin-right: 12px;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .user-avatar mat-icon {
@@ -159,6 +181,24 @@ mat-nav-list a:hover {
   width: 40px;
   height: 40px;
   color: #666;
+}
+
+.profile-avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+}
+
+.profile-avatar-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .user-details {
@@ -190,7 +230,14 @@ mat-nav-list a:hover {
     margin-bottom: 12px;
   }
 
-  .user-avatar mat-icon {
+  .user-avatar mat-icon,
+  .profile-avatar-img {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .profile-avatar-icon {
     font-size: 32px;
     width: 32px;
     height: 32px;

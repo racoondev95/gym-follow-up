@@ -207,12 +207,14 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   openComparisonDialog(): void {
+    const isMobile = window.innerWidth < 768;
     const dialogRef = this.dialog.open(SessionComparisonDialogComponent, {
-      width: '80%',
-      maxWidth: '1400px',
-      height: '80%',
-      maxHeight: '900px',
-      data: { sessions: [] }
+      width: isMobile ? '100vw' : '80%',
+      maxWidth: isMobile ? '100vw' : '1400px',
+      height: isMobile ? '100vh' : '80%',
+      maxHeight: isMobile ? '100vh' : '900px',
+      data: { sessions: [] },
+      panelClass: isMobile ? 'fullscreen-dialog' : ''
     });
 
     dialogRef.afterClosed().subscribe(result => {
