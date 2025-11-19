@@ -127,6 +127,13 @@ For complete environment variable documentation and security best practices, see
 - `PUT /api/exercises/:id` - Update exercise (User can update from own sessions, Admin can update all)
 - `DELETE /api/exercises/:id` - Delete exercise (User can delete from own sessions, Admin can delete all)
 
+### Progress (JWT required)
+- `GET /api/progress` - Get monthly progress analytics data
+  - Returns: `{ months: string[], intensity: number[], averageWeight: number[] }`
+  - Intensitate: Number of training sessions per month
+  - Greutate medie: Average weight lifted per month (from exercises)
+  - User sees own data, Admin can see any user's data with `?userId=` parameter
+
 ### Health Check (No JWT required)
 - `GET /api/health` - Health check
 
@@ -148,6 +155,24 @@ Authorization: Bearer <your-token>
 - Register endpoint is public (no authentication required)
 - Login endpoint is public (no authentication required)
 
+## Features
+
+### Progress Analytics
+- **Progress Page** (`/dashboard/progress`) - Full-page progress visualization with ApexCharts
+  - Monthly training intensity (number of sessions per month)
+  - Average weight progression over time
+  - Interactive area chart with gradient fill
+  
+- **Dashboard Widget** - Progress Timeline widget on dashboard home
+  - Compact progress chart showing monthly trends
+  - Spans 2 columns in the dashboard grid
+  - Real-time data from user's training sessions
+
+### Chart Library
+The application uses **ApexCharts** for data visualization:
+- `ng-apexcharts@1.7.0` - Angular wrapper
+- `apexcharts@3.44.0` - Core charting library
+
 ## Notes
 
 - The database will be automatically initialized with all required tables on first run
@@ -156,4 +181,5 @@ Authorization: Bearer <your-token>
 - All services communicate through Docker network `gym-network`
 - Database data is persisted in a Docker volume
 - JWT tokens expire after 24 hours
+- Progress data is calculated from existing sessions and exercises (no additional data storage required)
 

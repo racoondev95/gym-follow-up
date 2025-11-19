@@ -26,6 +26,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 // Components
 import { AppComponent } from './app.component';
@@ -45,6 +46,7 @@ import { PwaUpdateComponent } from './components/pwa-update/pwa-update.component
 import { DashboardHomeSkeletonComponent } from './components/dashboard/dashboard-home/dashboard-home-skeleton.component';
 import { SessionsSkeletonComponent } from './components/sessions/sessions-skeleton.component';
 import { ProfileSkeletonComponent } from './components/profile/profile-skeleton.component';
+import { ProgressComponent } from './components/progress/progress.component';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -52,6 +54,7 @@ import { UserService } from './services/user.service';
 import { ProfileService } from './services/profile.service';
 import { SessionsService } from './services/sessions.service';
 import { ExercisesService } from './services/exercises.service';
+import { ProgressService } from './services/progress.service';
 
 // Guards
 import { AuthGuard } from './guards/auth.guard';
@@ -72,7 +75,8 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardHomeComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'sessions', component: SessionsComponent }
+      { path: 'sessions', component: SessionsComponent },
+      { path: 'progress', component: ProgressComponent }
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -97,7 +101,8 @@ const routes: Routes = [
     PwaUpdateComponent,
     DashboardHomeSkeletonComponent,
     SessionsSkeletonComponent,
-    ProfileSkeletonComponent
+    ProfileSkeletonComponent,
+    ProgressComponent
   ],
   imports: [
     BrowserModule,
@@ -125,6 +130,7 @@ const routes: Routes = [
     MatProgressBarModule,
     MatSelectModule,
     MatAutocompleteModule,
+    NgApexchartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(), // Disable in development to avoid CORS issues
       // Register the ServiceWorker as soon as the application is stable
@@ -138,6 +144,7 @@ const routes: Routes = [
     ProfileService,
     SessionsService,
     ExercisesService,
+    ProgressService,
     AuthGuard,
     GuestGuard,
     {

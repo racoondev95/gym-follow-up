@@ -11,6 +11,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const sessionRoutes = require('./routes/sessionRoutes');
 const exerciseRoutes = require('./routes/exerciseRoutes');
+const progressRoutes = require('./routes/progressRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/sessions', sessionRoutes);
 app.use('/api/exercises', exerciseRoutes);
+app.use('/api/progress', progressRoutes);
 
 // Health check (no authentication required)
 app.get('/api/health', (req, res) => {

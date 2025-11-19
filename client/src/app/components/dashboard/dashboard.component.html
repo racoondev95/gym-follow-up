@@ -16,6 +16,10 @@
         <mat-icon matListItemIcon>list</mat-icon>
         <span matListItemTitle>Sessions</span>
       </a>
+      <a mat-list-item routerLink="/dashboard/progress" routerLinkActive="active" (click)="isMobile && toggleSidebar()">
+        <mat-icon matListItemIcon>trending_up</mat-icon>
+        <span matListItemTitle>Progress</span>
+      </a>
       <a mat-list-item routerLink="/dashboard/profile" routerLinkActive="active" (click)="isMobile && toggleSidebar()">
         <mat-icon matListItemIcon>person</mat-icon>
         <span matListItemTitle>Profile</span>

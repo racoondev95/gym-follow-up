@@ -3,6 +3,32 @@ import { SessionsService, Session } from '../../../services/sessions.service';
 import { AuthService, User } from '../../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SessionComparisonDialogComponent } from '../../sessions/dialogs/session-comparison-dialog.component';
+import { ProgressService, ProgressData } from '../../../services/progress.service';
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexYAxis,
+  ApexDataLabels,
+  ApexStroke,
+  ApexTitleSubtitle,
+  ApexLegend,
+  ApexTooltip,
+  ApexFill
+} from 'ng-apexcharts';
+
+export type ProgressChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis | ApexYAxis[];
+  dataLabels: ApexDataLabels;
+  stroke: ApexStroke;
+  title: ApexTitleSubtitle;
+  legend: ApexLegend;
+  tooltip: ApexTooltip;
+  fill: ApexFill;
+};
 
 @Component({
   selector: 'app-dashboard-home',
@@ -19,15 +45,90 @@ export class DashboardHomeComponent implements OnInit {
   weekSessions: number = 0;
   monthSessions: number = 0;
 
+  // Progress chart
+  progressChartOptions: Partial<ProgressChartOptions>;
+  progressLoading = false;
+
   constructor(
     private sessionsService: SessionsService,
     private authService: AuthService,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private progressService: ProgressService
+  ) {
+    this.progressChartOptions = {
+      series: [
+        {
+          name: 'Intensitate (antrenamente/lună)',
+          type: 'column',
+          data: []
+        },
+        {
+          name: 'Greutate medie (kg)',
+          type: 'area',
+          data: []
+        }
+      ],
+      chart: {
+        height: 300,
+        type: 'area',
+        toolbar: {
+          show: false
+        },
+        zoom: {
+          enabled: false
+        },
+        stacked: false
+      },
+      stroke: {
+        width: [0, 3],
+        curve: 'smooth'
+      },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.3,
+          stops: [0, 90, 100]
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      xaxis: {
+        categories: [],
+        title: {
+          text: 'Lună'
+        }
+      },
+      yaxis: [
+        {
+          title: {
+            text: 'Număr antrenamente'
+          }
+        },
+        {
+          opposite: true,
+          title: {
+            text: 'Greutate medie (kg)'
+          }
+        }
+      ],
+      legend: {
+        position: 'top',
+        show: true
+      },
+      tooltip: {
+        shared: true,
+        intersect: false
+      }
+    };
+  }
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
     this.loadSessions();
+    this.loadProgressData();
   }
 
   loadSessions(): void {
@@ -74,6 +175,35 @@ export class DashboardHomeComponent implements OnInit {
       return `http://localhost:3000${this.currentUser.profilePicturePath}`;
     }
     return '';
+  }
+
+  loadProgressData(): void {
+    this.progressLoading = true;
+    this.progressService.getProgressData().subscribe({
+      next: (data: ProgressData) => {
+        this.progressChartOptions.series = [
+          {
+            name: 'Intensitate (antrenamente/lună)',
+            type: 'column',
+            data: data.intensity
+          },
+          {
+            name: 'Greutate medie (kg)',
+            type: 'area',
+            data: data.averageWeight
+          }
+        ];
+        this.progressChartOptions.xaxis = {
+          ...this.progressChartOptions.xaxis,
+          categories: data.months
+        };
+        this.progressLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading progress data:', err);
+        this.progressLoading = false;
+      }
+    });
   }
 
   openComparisonDialog(): void {
